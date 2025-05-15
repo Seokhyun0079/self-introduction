@@ -128,6 +128,15 @@
         color: #2c3e50;
         font-size: 1.2rem;
         margin: 0;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .project-link-hint {
+        font-size: 0.7rem;
+        color: #7f8c8d;
+        font-weight: normal;
       }
 
       .project-description {
@@ -139,10 +148,46 @@
         color: #2c3e50;
         text-decoration: none;
         transition: color 0.3s ease;
+        position: relative;
+        cursor: pointer;
       }
 
-      .project-link:hover {
+      .project-link:hover,
+      .project-link:focus {
         color: #3498db;
+      }
+
+      .project-link:hover::after,
+      .project-link:focus::after,
+      .project-link.touch::after {
+        content: "クリックしてプロジェクトページを開く";
+        position: absolute;
+        bottom: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #333;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 4px;
+        font-size: 0.8rem;
+        white-space: nowrap;
+        margin-bottom: 5px;
+        z-index: 1000;
+      }
+
+      .project-link:hover::before,
+      .project-link:focus::before,
+      .project-link.touch::before {
+        content: "";
+        position: absolute;
+        bottom: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        border-width: 5px;
+        border-style: solid;
+        border-color: #333 transparent transparent transparent;
+        margin-bottom: -5px;
+        z-index: 1000;
       }
 
       @media (max-width: 600px) {
@@ -152,6 +197,21 @@
 
         .project-header .skills {
           margin-top: 0.5rem;
+        }
+
+        .project-link.touch::after {
+          bottom: auto;
+          top: 100%;
+          margin-top: 5px;
+          margin-bottom: 0;
+        }
+
+        .project-link.touch::before {
+          bottom: auto;
+          top: 100%;
+          margin-top: -5px;
+          margin-bottom: 0;
+          border-color: transparent transparent #333 transparent;
         }
       }
 
@@ -205,6 +265,25 @@
         animation-delay: 0.8s;
       }
     </style>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const links = document.querySelectorAll(".project-link");
+
+        links.forEach((link) => {
+          link.addEventListener("touchstart", function (e) {
+            e.preventDefault();
+            links.forEach((l) => l.classList.remove("touch"));
+            this.classList.add("touch");
+          });
+
+          document.addEventListener("touchstart", function (e) {
+            if (!e.target.classList.contains("project-link")) {
+              links.forEach((l) => l.classList.remove("touch"));
+            }
+          });
+        });
+      });
+    </script>
   </head>
   <body>
     <div class="container">
@@ -269,6 +348,7 @@
                     class="project-link"
                     >Tree Table ID Generator</a
                   >
+                  <span class="project-link-hint">(クリックでGitHubへ)</span>
                 </h3>
                 <div class="skills">
                   <span class="skill-tag">Go</span>
@@ -290,6 +370,7 @@
                     class="project-link"
                     >LLM 学習プロジェクト</a
                   >
+                  <span class="project-link-hint">(クリックでGitHubへ)</span>
                 </h3>
                 <div class="skills">
                   <span class="skill-tag">Python</span>
@@ -310,6 +391,7 @@
                     class="project-link"
                     >JavaScript Tetris</a
                   >
+                  <span class="project-link-hint">(クリックでGitHubへ)</span>
                 </h3>
                 <div class="skills">
                   <span class="skill-tag">JavaScript</span>
@@ -331,6 +413,7 @@
                     class="project-link"
                     >NoComment</a
                   >
+                  <span class="project-link-hint">(クリックでGitHubへ)</span>
                 </h3>
                 <div class="skills">
                   <span class="skill-tag">React</span>
