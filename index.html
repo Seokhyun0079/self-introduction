@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ko">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>自己紹介</title>
+    <title>언어 선택 | Language Selection</title>
     <style>
       * {
         margin: 0;
@@ -13,353 +13,146 @@
 
       body {
         font-family: "Noto Sans KR", sans-serif;
-        line-height: 1.6;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         color: #333;
-        background-color: #f5f5f5;
       }
 
-      .container {
-        max-width: 800px;
-        margin: 0 auto;
-        padding: 2rem;
-      }
-
-      .profile {
-        background-color: white;
-        border-radius: 10px;
-        padding: 2rem;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        margin-bottom: 2rem;
-      }
-
-      .profile-header {
+      .language-container {
+        background: rgba(255, 255, 255, 0.95);
+        padding: 3rem;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
         text-align: center;
-        margin-bottom: 2rem;
+        backdrop-filter: blur(10px);
+        transform: translateY(0);
+        transition: transform 0.3s ease;
+        max-width: 90%;
+        width: 400px;
       }
 
-      .profile-image {
-        width: 150px;
-        height: 150px;
-        border-radius: 50%;
-        margin-bottom: 1rem;
-        object-fit: cover;
+      .language-container:hover {
+        transform: translateY(-5px);
       }
 
       h1 {
-        color: #2c3e50;
-        margin-bottom: 0.5rem;
-      }
-
-      .subtitle {
-        color: #7f8c8d;
-        font-size: 1.1rem;
-      }
-
-      .section {
+        font-size: 1.8rem;
         margin-bottom: 2rem;
+        color: #2d3748;
+        line-height: 1.4;
       }
 
-      h2 {
-        color: #2c3e50;
-        border-bottom: 2px solid #3498db;
-        padding-bottom: 0.5rem;
-        margin-bottom: 1rem;
-      }
-
-      .skills-section {
-        margin-bottom: 1.5rem;
-      }
-
-      .skills-section h3 {
-        color: #34495e;
-        font-size: 1.1rem;
-        margin-bottom: 0.8rem;
-      }
-
-      .skills {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.5rem;
-      }
-
-      .skill-tag {
-        background-color: #3498db;
-        color: white;
-        padding: 0.3rem 0.8rem;
-        border-radius: 15px;
-        font-size: 0.9rem;
-      }
-
-      .contact-info {
+      .language-buttons {
         display: flex;
         flex-direction: column;
-        gap: 0.5rem;
-      }
-
-      .contact-item {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-      }
-
-      .project-list {
-        display: flex;
-        flex-direction: column;
-        gap: 1.5rem;
-      }
-
-      .project-item {
-        background-color: #f8f9fa;
-        padding: 1.5rem;
-        border-radius: 8px;
-        border-left: 4px solid #3498db;
-      }
-
-      .project-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-        margin-bottom: 1rem;
-        flex-wrap: wrap;
         gap: 1rem;
       }
 
-      .project-header h3 {
-        color: #2c3e50;
-        font-size: 1.2rem;
-        margin: 0;
+      .language-button {
+        padding: 1rem 2rem;
+        font-size: 1.1rem;
+        border: none;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
       }
 
-      .project-description {
-        color: #666;
-        line-height: 1.6;
+      .korean {
+        background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
+        color: white;
       }
 
-      .project-link {
-        color: #2c3e50;
-        text-decoration: none;
-        transition: color 0.3s ease;
+      .japanese {
+        background: linear-gradient(135deg, #2196f3 0%, #1976d2 100%);
+        color: white;
       }
 
-      .project-link:hover {
-        color: #3498db;
+      .language-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
       }
 
-      @media (max-width: 600px) {
-        .project-header {
-          flex-direction: column;
-        }
-
-        .project-header .skills {
-          margin-top: 0.5rem;
-        }
+      .language-button:active {
+        transform: translateY(0);
       }
 
-      @keyframes fadeInUp {
-        from {
-          opacity: 0;
-          transform: translateY(20px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-        }
-        to {
-          opacity: 1;
-        }
-      }
-
-      .animate-fade-in-up {
-        animation: fadeInUp 0.8s ease-out forwards;
-      }
-
-      .animate-fade-in {
-        animation: fadeIn 1s ease-out forwards;
-      }
-
-      .profile-image {
-        animation: fadeIn 1.2s ease-out forwards;
-      }
-
-      .section {
+      .language-button::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 5px;
+        height: 5px;
+        background: rgba(255, 255, 255, 0.5);
         opacity: 0;
-        animation: fadeInUp 0.8s ease-out forwards;
+        border-radius: 100%;
+        transform: scale(1, 1) translate(-50%);
+        transform-origin: 50% 50%;
       }
 
-      .section:nth-child(2) {
-        animation-delay: 0.2s;
+      .language-button:hover::after {
+        animation: ripple 1s ease-out;
       }
-      .section:nth-child(3) {
-        animation-delay: 0.4s;
+
+      @keyframes ripple {
+        0% {
+          transform: scale(0, 0);
+          opacity: 0.5;
+        }
+        100% {
+          transform: scale(20, 20);
+          opacity: 0;
+        }
       }
-      .section:nth-child(4) {
-        animation-delay: 0.6s;
+
+      .language-icon {
+        font-size: 1.2rem;
       }
-      .section:nth-child(5) {
-        animation-delay: 0.8s;
+
+      @media (max-width: 480px) {
+        .language-container {
+          padding: 2rem;
+        }
+
+        h1 {
+          font-size: 1.5rem;
+        }
+
+        .language-button {
+          padding: 0.8rem 1.5rem;
+          font-size: 1rem;
+        }
       }
     </style>
   </head>
   <body>
-    <div class="container">
-      <div class="profile">
-        <div class="profile-header">
-          <img
-            src="https://avatars.githubusercontent.com/u/28752109?s=400&u=0c95c1b729664e6f1b634b52bc8ae0a24fa9d91f&v=4"
-            alt="プロフィール画像"
-            class="profile-image"
-          />
-          <h1 class="animate-fade-in-up">Hwang Seokhyun ファン ソキョン</h1>
-          <p class="subtitle animate-fade-in-up" style="animation-delay: 0.2s">
-            ウェブ開発者
-          </p>
-        </div>
-
-        <div class="section">
-          <h2>自己紹介</h2>
-          <p>
-            はじめまして！ウェブ開発を勉強しているファン ソキョンと申します。
-            ユーザー体験を重視し、常に新しい技術を学び、適用することを心がけています。
-          </p>
-        </div>
-
-        <div class="section">
-          <h2>技術スタック</h2>
-          <div class="skills-section">
-            <h3>実務経験</h3>
-            <div class="skills">
-              <span class="skill-tag">HTML</span>
-              <span class="skill-tag">CSS</span>
-              <span class="skill-tag">JavaScript</span>
-              <span class="skill-tag">React</span>
-              <span class="skill-tag">Vue.js</span>
-              <span class="skill-tag">Vuetify</span>
-              <span class="skill-tag">Node.js</span>
-              <span class="skill-tag">Java</span>
-            </div>
-          </div>
-          <div class="skills-section">
-            <h3>個人学習</h3>
-            <div class="skills">
-              <span class="skill-tag">TypeScript</span>
-              <span class="skill-tag">Next.js</span>
-              <span class="skill-tag">MongoDB</span>
-              <span class="skill-tag">React</span>
-              <span class="skill-tag">Node.js</span>
-              <span class="skill-tag">Java</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="section">
-          <h2>プロジェクト</h2>
-          <div class="project-list">
-            <div class="project-item">
-              <div class="project-header">
-                <h3>
-                  <a
-                    href="https://github.com/Seokhyun0079/tree-table-idgenerator"
-                    target="_blank"
-                    class="project-link"
-                    >Tree Table ID Generator</a
-                  >
-                </h3>
-                <div class="skills">
-                  <span class="skill-tag">Go</span>
-                  <span class="skill-tag">Next.js</span>
-                  <span class="skill-tag">MySQL</span>
-                </div>
-              </div>
-              <p class="project-description">
-                階層構造データの自動ID生成システムを開発しました。親子関係を維持しながら
-                IDを自動生成し、データ構造を可視化する機能を実装しました。
-              </p>
-            </div>
-            <div class="project-item">
-              <div class="project-header">
-                <h3>
-                  <a
-                    href="https://github.com/Seokhyun0079/LLM-education"
-                    target="_blank"
-                    class="project-link"
-                    >LLM 学習プロジェクト</a
-                  >
-                </h3>
-                <div class="skills">
-                  <span class="skill-tag">Python</span>
-                  <span class="skill-tag">LLM</span>
-                </div>
-              </div>
-              <p class="project-description">
-                「作りながら学ぶ！LLM自作入門」を通じて、大規模言語モデルの基礎から実装までを学習中です。
-                理論的な理解と実践的なコーディングを通じて、AI技術の本質的な理解を深めています。
-              </p>
-            </div>
-            <div class="project-item">
-              <div class="project-header">
-                <h3>
-                  <a
-                    href="https://github.com/Seokhyun0079/JSTetris"
-                    target="_blank"
-                    class="project-link"
-                    >JavaScript Tetris</a
-                  >
-                </h3>
-                <div class="skills">
-                  <span class="skill-tag">JavaScript</span>
-                  <span class="skill-tag">HTML</span>
-                  <span class="skill-tag">CSS</span>
-                </div>
-              </div>
-              <p class="project-description">
-                JavaScriptを使用して、クラシックなテトリスゲームを実装しました。
-                オブジェクト指向プログラミングの概念を活用し、ゲームロジックとUIを分離して設計しました。
-              </p>
-            </div>
-            <div class="project-item">
-              <div class="project-header">
-                <h3>
-                  <a
-                    href="https://github.com/Seokhyun0079/NoComment"
-                    target="_blank"
-                    class="project-link"
-                    >NoComment</a
-                  >
-                </h3>
-                <div class="skills">
-                  <span class="skill-tag">React</span>
-                  <span class="skill-tag">Node.js</span>
-                  <span class="skill-tag">MongoDB</span>
-                </div>
-              </div>
-              <p class="project-description">
-                悪意のあるコメントがなくなることを願い、
-                テキストベースのコメントシステムの代わりにマウスで絵を描く方式を採用した個人用ホームページです。
-                フロントエンドはReact、バックエンドはNode.js、データベースはMongoDBを使用しています。
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div class="section">
-          <h2>連絡先</h2>
-          <div class="contact-info">
-            <div class="contact-item">
-              <span>📧</span>
-              <span>seokhyun0324jp@gmail.com</span>
-            </div>
-            <div class="contact-item">
-              <span>🌐</span>
-              <span>github.com/Seokhyun0079</span>
-            </div>
-          </div>
-        </div>
+    <div class="language-container">
+      <h1>언어를 선택해주세요<br />言語を選択してください</h1>
+      <div class="language-buttons">
+        <button
+          class="language-button korean"
+          onclick="window.location.href='./index-kr.html'"
+        >
+          <span class="language-icon">🇰🇷</span>
+          한국어
+        </button>
+        <button
+          class="language-button japanese"
+          onclick="window.location.href='./index-jp.html'"
+        >
+          <span class="language-icon">🇯🇵</span>
+          日本語
+        </button>
       </div>
     </div>
   </body>
