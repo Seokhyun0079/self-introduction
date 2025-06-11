@@ -4,267 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>자기소개</title>
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-
-      body {
-        font-family: "Noto Sans KR", sans-serif;
-        line-height: 1.6;
-        color: #333;
-        background-color: #f5f5f5;
-      }
-
-      .container {
-        max-width: 800px;
-        margin: 0 auto;
-        padding: 2rem;
-      }
-
-      .profile {
-        background-color: white;
-        border-radius: 10px;
-        padding: 2rem;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        margin-bottom: 2rem;
-      }
-
-      .profile-header {
-        text-align: center;
-        margin-bottom: 2rem;
-      }
-
-      .profile-image {
-        width: 150px;
-        height: 150px;
-        border-radius: 50%;
-        margin-bottom: 1rem;
-        object-fit: cover;
-      }
-
-      h1 {
-        color: #2c3e50;
-        margin-bottom: 0.5rem;
-      }
-
-      .subtitle {
-        color: #7f8c8d;
-        font-size: 1.1rem;
-      }
-
-      .section {
-        margin-bottom: 2rem;
-      }
-
-      h2 {
-        color: #2c3e50;
-        border-bottom: 2px solid #3498db;
-        padding-bottom: 0.5rem;
-        margin-bottom: 1rem;
-      }
-
-      .skills-section {
-        margin-bottom: 1.5rem;
-      }
-
-      .skills-section h3 {
-        color: #34495e;
-        font-size: 1.1rem;
-        margin-bottom: 0.8rem;
-      }
-
-      .skills {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.5rem;
-      }
-
-      .skill-tag {
-        background-color: #3498db;
-        color: white;
-        padding: 0.3rem 0.8rem;
-        border-radius: 15px;
-        font-size: 0.9rem;
-      }
-
-      .contact-info {
-        display: flex;
-        flex-direction: column;
-        gap: 0.5rem;
-      }
-
-      .contact-item {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-      }
-
-      .project-list {
-        display: flex;
-        flex-direction: column;
-        gap: 1.5rem;
-      }
-
-      .project-item {
-        background-color: #f8f9fa;
-        padding: 1.5rem;
-        border-radius: 8px;
-        border-left: 4px solid #3498db;
-      }
-
-      .project-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-        margin-bottom: 1rem;
-        flex-wrap: wrap;
-        gap: 1rem;
-      }
-
-      .project-header h3 {
-        color: #2c3e50;
-        font-size: 1.2rem;
-        margin: 0;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-      }
-
-      .project-link-hint {
-        font-size: 0.7rem;
-        color: #7f8c8d;
-        font-weight: normal;
-      }
-
-      .project-description {
-        color: #666;
-        line-height: 1.6;
-      }
-
-      .project-link {
-        color: #2c3e50;
-        text-decoration: none;
-        transition: color 0.3s ease;
-        position: relative;
-        cursor: pointer;
-      }
-
-      .project-link:hover,
-      .project-link:focus {
-        color: #3498db;
-      }
-
-      .project-link:hover::after,
-      .project-link:focus::after,
-      .project-link.touch::after {
-        content: "클릭하여 프로젝트 페이지 열기";
-        position: absolute;
-        bottom: 100%;
-        left: 50%;
-        transform: translateX(-50%);
-        background-color: #333;
-        color: white;
-        padding: 5px 10px;
-        border-radius: 4px;
-        font-size: 0.8rem;
-        white-space: nowrap;
-        margin-bottom: 5px;
-        z-index: 1000;
-      }
-
-      .project-link:hover::before,
-      .project-link:focus::before,
-      .project-link.touch::before {
-        content: "";
-        position: absolute;
-        bottom: 100%;
-        left: 50%;
-        transform: translateX(-50%);
-        border-width: 5px;
-        border-style: solid;
-        border-color: #333 transparent transparent transparent;
-        margin-bottom: -5px;
-        z-index: 1000;
-      }
-
-      @media (max-width: 600px) {
-        .project-header {
-          flex-direction: column;
-        }
-
-        .project-header .skills {
-          margin-top: 0.5rem;
-        }
-
-        .project-link.touch::after {
-          bottom: auto;
-          top: 100%;
-          margin-top: 5px;
-          margin-bottom: 0;
-        }
-
-        .project-link.touch::before {
-          bottom: auto;
-          top: 100%;
-          margin-top: -5px;
-          margin-bottom: 0;
-          border-color: transparent transparent #333 transparent;
-        }
-      }
-
-      @keyframes fadeInUp {
-        from {
-          opacity: 0;
-          transform: translateY(20px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-        }
-        to {
-          opacity: 1;
-        }
-      }
-
-      .animate-fade-in-up {
-        animation: fadeInUp 0.8s ease-out forwards;
-      }
-
-      .animate-fade-in {
-        animation: fadeIn 1s ease-out forwards;
-      }
-
-      .profile-image {
-        animation: fadeIn 1.2s ease-out forwards;
-      }
-
-      .section {
-        opacity: 0;
-        animation: fadeInUp 0.8s ease-out forwards;
-      }
-
-      .section:nth-child(2) {
-        animation-delay: 0.2s;
-      }
-      .section:nth-child(3) {
-        animation-delay: 0.4s;
-      }
-      .section:nth-child(4) {
-        animation-delay: 0.6s;
-      }
-      .section:nth-child(5) {
-        animation-delay: 0.8s;
-      }
-    </style>
+    <link rel="stylesheet" href="styles.css" />
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         const links = document.querySelectorAll(".project-link");
@@ -315,30 +55,80 @@
           <h2>기술 스택</h2>
           <div class="skills-section">
             <h3>실무 경험</h3>
-            <div class="skills">
-              <span class="skill-tag">HTML</span>
-              <span class="skill-tag">CSS</span>
-              <span class="skill-tag">JavaScript</span>
-              <span class="skill-tag">React</span>
-              <span class="skill-tag">Vue.js</span>
-              <span class="skill-tag">Vuetify</span>
-              <span class="skill-tag">Node.js</span>
-              <span class="skill-tag">Java</span>
-              <span class="skill-tag">Doma</span>
-              <span class="skill-tag">WebPerformer</span>
-              <span class="skill-tag">Next.js</span>
-              <span class="skill-tag">TypeScript</span>
+            <div class="skills-subsection">
+              <h4>5년 이상</h4>
+              <div class="skills">
+                <span class="skill-tag over-5year">JavaScript</span>
+              </div>
+            </div>
+            <div class="skills-subsection">
+              <h4>3년 이상</h4>
+              <div class="skills">
+                <span class="skill-tag over-3year">HTML</span>
+                <span class="skill-tag over-3year">CSS</span>
+                <span class="skill-tag over-3year">Java</span>
+              </div>
+            </div>
+            <div class="skills-subsection">
+              <h4>2년 이상</h4>
+              <div class="skills">
+                <span class="skill-tag over-2year">React</span>
+                <span class="skill-tag over-2year">Vue.js</span>
+                <span class="skill-tag over-2year">Node.js</span>
+              </div>
+            </div>
+            <div class="skills-subsection">
+              <h4>1년 이상</h4>
+              <div class="skills">
+                <span class="skill-tag over-1year">Vuetify</span>
+                <span class="skill-tag over-1year">Doma</span>
+                <span class="skill-tag over-1year">WebPerformer</span>
+                <span class="skill-tag over-1year">TypeScript</span>
+                <span class="skill-tag over-1year">JSP</span>
+                <span class="skill-tag over-1year">Express.js</span>
+                <span class="skill-tag over-1year">Spring Boot</span>
+                <span class="skill-tag over-1year">Hibernate</span>
+                <span class="skill-tag over-1year">Oracle</span>
+                <span class="skill-tag over-1year">PostgreSQL</span>
+              </div>
+            </div>
+            <div class="skills-subsection">
+              <h4>1년 미만</h4>
+              <div class="skills">
+                <span class="skill-tag under-1year">Next.js</span>
+                <span class="skill-tag under-1year">Go</span>
+                <span class="skill-tag under-1year">Python</span>
+                <span class="skill-tag under-1year">C#</span>
+                <span class="skill-tag under-1year">MySQL</span>
+                <span class="skill-tag under-1year">Jest</span>
+                <span class="skill-tag under-1year">Unity</span>
+                <span class="skill-tag under-1year">Lambda</span>
+                <span class="skill-tag under-1year">Amplify</span>
+                <span class="skill-tag under-1year">WPF</span>
+                <span class="skill-tag under-1year">jQuery</span>
+                <span class="skill-tag under-1year">Seasar2</span>
+                <span class="skill-tag under-1year">DynamoDB</span>
+              </div>
             </div>
           </div>
           <div class="skills-section">
             <h3>개인 학습</h3>
             <div class="skills">
-              <span class="skill-tag">TypeScript</span>
-              <span class="skill-tag">Next.js</span>
-              <span class="skill-tag">MongoDB</span>
-              <span class="skill-tag">React</span>
-              <span class="skill-tag">Node.js</span>
-              <span class="skill-tag">Java</span>
+              <span class="skill-tag" style="background-color: #3498db"
+                >Next.js</span
+              >
+              <span class="skill-tag" style="background-color: #3498db"
+                >MongoDB</span
+              >
+              <span class="skill-tag" style="background-color: #3498db"
+                >React</span
+              >
+              <span class="skill-tag" style="background-color: #3498db"
+                >Node.js</span
+              >
+              <span class="skill-tag" style="background-color: #3498db"
+                >Java</span
+              >
             </div>
           </div>
         </div>
