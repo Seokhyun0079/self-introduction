@@ -132,6 +132,10 @@ h2 {
   background-color: #3498db;
 }
 
+.skill-tag.over-5year {
+  background-color: #2ecc71;
+}
+
 /* 프로젝트 섹션의 스킬 태그 스타일 */
 .project-item .skill-tag {
   background-color: #3498db;
