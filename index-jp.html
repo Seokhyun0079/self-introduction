@@ -11,13 +11,33 @@
 
         links.forEach((link) => {
           link.addEventListener("touchstart", function (e) {
-            e.preventDefault();
             links.forEach((l) => l.classList.remove("touch"));
             this.classList.add("touch");
           });
 
+          link.addEventListener("touchend", function (e) {
+            // 터치 상태 제거
+            setTimeout(() => {
+              this.classList.remove("touch");
+            }, 100);
+          });
+
+          // 제목 영역 클릭/터치 시 링크 실행
+          const parentH3 = link.closest("h3");
+          if (parentH3) {
+            parentH3.addEventListener("click", function (e) {
+              if (e.target !== link) {
+                window.open(link.href, "_blank");
+              }
+            });
+          }
+
+          // 다른 곳 터치 시 안내 메시지 제거
           document.addEventListener("touchstart", function (e) {
-            if (!e.target.classList.contains("project-link")) {
+            if (
+              !e.target.classList.contains("project-link") &&
+              !e.target.closest("h3")
+            ) {
               links.forEach((l) => l.classList.remove("touch"));
             }
           });

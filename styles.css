@@ -182,6 +182,14 @@ h2 {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.project-header h3:hover {
+  background-color: rgba(52, 152, 219, 0.1);
 }
 
 .project-link-hint {
@@ -224,6 +232,13 @@ h2 {
   white-space: nowrap;
   margin-bottom: 5px;
   z-index: 1000;
+}
+
+/* 일본어 페이지용 안내 텍스트 */
+html[lang="ja"] .project-link:hover::after,
+html[lang="ja"] .project-link:focus::after,
+html[lang="ja"] .project-link.touch::after {
+  content: "クリックしてプロジェクトページを開く";
 }
 
 .project-link:hover::before,
