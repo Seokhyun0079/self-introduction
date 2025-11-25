@@ -42,6 +42,148 @@
             }
           });
         });
+
+        // 필터링 기능
+        let currentFilterValue = ""; // 현재 필터 값 저장
+
+        const floatingBtn = document.createElement("button");
+        floatingBtn.className = "floating-filter-btn";
+        floatingBtn.innerHTML = "🔍";
+        floatingBtn.setAttribute("aria-label", "필터");
+        document.body.appendChild(floatingBtn);
+
+        const modal = document.createElement("div");
+        modal.className = "filter-modal";
+        modal.innerHTML = `
+          <div class="filter-modal-content">
+            <div class="filter-modal-header">
+              <h3>필터</h3>
+              <button class="filter-close-btn" aria-label="닫기">×</button>
+            </div>
+            <input
+              type="text"
+              class="filter-input"
+              placeholder="스킬 또는 프로젝트를 검색..."
+              id="filterInput"
+            />
+          </div>
+        `;
+        document.body.appendChild(modal);
+
+        const filterInput = document.getElementById("filterInput");
+        const closeBtn = modal.querySelector(".filter-close-btn");
+
+        floatingBtn.addEventListener("click", function () {
+          modal.classList.add("active");
+          filterInput.value = currentFilterValue; // 저장된 필터 값 표시
+          filterInput.focus();
+        });
+
+        closeBtn.addEventListener("click", function () {
+          modal.classList.remove("active");
+          // 필터는 유지하고 모달만 닫기
+        });
+
+        modal.addEventListener("click", function (e) {
+          if (e.target === modal) {
+            modal.classList.remove("active");
+            // 필터는 유지하고 모달만 닫기
+          }
+        });
+
+        filterInput.addEventListener("input", function (e) {
+          const searchTerm = e.target.value.toLowerCase().trim();
+          currentFilterValue = e.target.value; // 필터 값 저장
+          filterContent(searchTerm);
+        });
+
+        function filterContent(searchTerm) {
+          if (!searchTerm) {
+            // 검색어가 없으면 모든 항목 표시
+            document
+              .querySelectorAll(
+                ".skill-tag, .skills-subsection, .project-item, .skills-section, .section"
+              )
+              .forEach((el) => {
+                el.classList.remove("filtered-out");
+              });
+            document.querySelectorAll(".no-results").forEach((el) => {
+              el.classList.remove("show");
+            });
+            return;
+          }
+
+          let hasResults = false;
+
+          // 스킬 태그 필터링
+          const skillTags = document.querySelectorAll(".skill-tag");
+          skillTags.forEach((tag) => {
+            const tagText = tag.textContent.toLowerCase();
+            if (tagText.includes(searchTerm)) {
+              tag.classList.remove("filtered-out");
+              hasResults = true;
+              // 부모 섹션도 표시
+              let parent = tag.closest(".skills-subsection");
+              if (parent) parent.classList.remove("filtered-out");
+              parent = tag.closest(".skills-section");
+              if (parent) parent.classList.remove("filtered-out");
+            } else {
+              tag.classList.add("filtered-out");
+            }
+          });
+
+          // 프로젝트 필터링
+          const projectItems = document.querySelectorAll(".project-item");
+          projectItems.forEach((item) => {
+            const title =
+              item.querySelector(".project-link")?.textContent.toLowerCase() ||
+              "";
+            const description =
+              item
+                .querySelector(".project-description")
+                ?.textContent.toLowerCase() || "";
+            const projectSkills = Array.from(
+              item.querySelectorAll(".skill-tag")
+            )
+              .map((tag) => tag.textContent.toLowerCase())
+              .join(" ");
+            const allText = title + " " + description + " " + projectSkills;
+
+            if (allText.includes(searchTerm)) {
+              item.classList.remove("filtered-out");
+              hasResults = true;
+            } else {
+              item.classList.add("filtered-out");
+            }
+          });
+
+          // 필터링된 스킬 섹션 숨김 처리
+          document.querySelectorAll(".skills-section").forEach((section) => {
+            const visibleSubsections = section.querySelectorAll(
+              ".skills-subsection:not(.filtered-out)"
+            );
+            if (visibleSubsections.length === 0 && searchTerm) {
+              section.classList.add("filtered-out");
+            } else {
+              section.classList.remove("filtered-out");
+            }
+          });
+
+          // 결과 없음 메시지
+          let noResultsMsg = document.querySelector(".no-results");
+          if (!noResultsMsg) {
+            noResultsMsg = document.createElement("div");
+            noResultsMsg.className = "no-results";
+            noResultsMsg.textContent = "검색 결과가 없습니다";
+            document.querySelector(".container").appendChild(noResultsMsg);
+          }
+
+          if (!hasResults && searchTerm) {
+            noResultsMsg.classList.add("show");
+          } else {
+            noResultsMsg.classList.remove("show");
+          }
+        }
       });
     </script>
   </head>
